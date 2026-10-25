@@ -19,6 +19,7 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp a
   function setWho(w){form.classList.remove('owner','buyer');form.classList.add(w);document.querySelectorAll('#who button').forEach(function(b){b.classList.toggle('on',b.dataset.who===w)});submit.textContent=window.DS_LANG==='en'?(w==='owner'?'Receive my estimate':'Receive the selection'):(w==='owner'?'Recevoir mon estimation':'Recevoir la sélection')}
   document.querySelectorAll('#who button').forEach(function(b){b.addEventListener('click',function(){setWho(b.dataset.who)})});
   document.querySelectorAll('[data-who][href$="#contact"]').forEach(function(a){a.addEventListener('click',function(){setWho(a.dataset.who)})});
+  try{var qw=new URLSearchParams(location.search).get('who');if(qw==='buyer'||qw==='owner')setWho(qw)}catch(e){}
   form.addEventListener('submit',function(e){e.preventDefault();
     var w=form.classList.contains('buyer')?'buyer':'owner';
     var v=function(id){var el=document.getElementById(id);return el?el.value.trim():''};
