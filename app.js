@@ -27,6 +27,8 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp a
     var lines=[w==='owner'?L.o:L.b];
     if(w==='owner'){lines.push(L.type+L.sep+v('f-type'));lines.push(L.obj+L.sep+v('f-obj'))}else{lines.push(L.budget+L.sep+v('b-budget'));lines.push(L.proj+L.sep+v('b-obj'))}
     if(v('f-nom'))lines.push(L.name+L.sep+v('f-nom'));if(v('f-tel'))lines.push(L.contact+L.sep+v('f-tel'));if(v('f-msg'))lines.push(L.msg+L.sep+v('f-msg'));
+    var src=window.dsSource?window.dsSource():'';if(src)lines.push((window.DS_LANG==='en'?'Ref':'Réf')+L.sep+src);
+    if(window.dsEvent)window.dsEvent('generate_lead',{who:w,type:w==='owner'?v('f-type'):v('b-budget'),objective:w==='owner'?v('f-obj'):v('b-obj')});
     var url='https://wa.me/'+window.DS_WHATSAPP+'?text='+encodeURIComponent(lines.join('\n'));
     window.open(url,'_blank');document.getElementById('ok').style.display='block'});
 
@@ -43,6 +45,7 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp a
   function seg(id,key,parse){document.querySelectorAll('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');S[key]=parse(b.dataset.v);calc()})})}
   seg('s-type','type',String);seg('s-std','std',parseFloat);seg('s-pool','pool',parseInt);
   var ch=document.getElementById('s-ch');ch.addEventListener('input',function(){S.ch=+ch.value;document.getElementById('s-ch-v').textContent=ch.value;calc()});
+  var simUsed=false;document.querySelectorAll('.sim button,#s-ch').forEach(function(el){el.addEventListener(el.id==='s-ch'?'input':'click',function(){if(!simUsed&&window.dsEvent){simUsed=true;window.dsEvent('simulator_use',{})}})});
   calc();
   var scta=document.getElementById('s-cta');
   if(scta){scta.addEventListener('click',function(){setWho('owner');
