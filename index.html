@@ -24,7 +24,7 @@
 <script src="track.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="accueil">
 <script>window.DS_LANG='fr';</script>
 
 <!-- NAV -->
@@ -65,16 +65,16 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="bg" data-parallax="0.35"><img fetchpriority="high" width="1280" height="853" src="img/hero.webp" alt="Villa de luxe avec piscine à Marrakech gérée par Dar Serenity"></div>
-  <div class="wrap">
+  <div class="wrap"><div class="htext">
     <h1><span class="w"><i style="animation-delay:.1s">Votre</i></span> <span class="w"><i style="animation-delay:.18s">bien</i></span> <span class="w"><i style="animation-delay:.26s">à</i></span> <span class="w"><i style="animation-delay:.34s">Marrakech</i></span><br><span class="w"><i style="animation-delay:.46s">doit</i></span> <span class="w"><i style="animation-delay:.54s">vous</i></span> <span class="w"><i style="animation-delay:.62s">rapporter.</i></span><br><em><span class="w"><i style="animation-delay:.78s">Pas</i></span> <span class="w"><i style="animation-delay:.86s">vous</i></span> <span class="w"><i style="animation-delay:.94s">occuper.</i></span></em></h1>
     <div class="hero-sub">
       <p>Conciergerie, gestion locative et vente. Nous gérons, vous encaissez.</p>
       <div class="audience">
-        <a href="#contact" data-who="owner"><b>Je suis propriétaire</b><span>Estimer mes revenus →</span></a>
+        <a href="#etude" class="aud-owner"><b>Je suis propriétaire</b><span>Simuler mes revenus →</span></a>
         <a href="#contact" data-who="buyer"><b>Je veux acheter</b><span>Recevoir la sélection →</span></a>
       </div>
     </div>
-  </div>
+  </div><form class="form hero-form" id="lead"><h3>Mon estimation gratuite</h3><p class="sub">Réponse sous 24 h. Sans engagement.</p><div class="row"><label>Type de bien<select name="type"><option>Appartement</option><option>Villa</option><option>Riad</option></select></label><label>Objectif<select name="objectif"><option selected>Louer en courte durée</option><option>Louer en longue durée</option><option>Je ne sais pas encore</option></select></label></div><div class="row"><label>Nom<input name="nom" type="text" autocomplete="name" placeholder="Prénom Nom"></label><label>WhatsApp ou e-mail<input name="contact" type="text" required autocomplete="tel" placeholder="+33 6 … ou vous@mail.com"></label></div><label>Message (optionnel)<input name="message" type="text" placeholder="Quartier, surface, chambres…"></label><button type="submit" class="btn">Recevoir mon estimation</button><small>En envoyant, WhatsApp s'ouvre avec votre demande pré-remplie. Vos données servent uniquement à vous répondre. <a href="confidentialite.html" style="text-decoration:underline">Confidentialité</a></small><div class="ok">Merci. Si WhatsApp ne s'est pas ouvert, écrivez-nous à contact@darserenity.com.</div></form></div>
   <div class="hero-meta"><div class="wrap"><span>Marrakech</span><span>Conciergerie · Location · Vente</span><span>Propriétaires et investisseurs, ici et à l'étranger</span></div></div>
 </section>
 
@@ -370,6 +370,6 @@
   </div>
 </footer>
 
-<script src="app.js"></script>
+<script src="lead.js"></script><script src="app.js"></script>
 </body>
 </html>

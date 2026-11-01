@@ -24,7 +24,7 @@
 <script src="../track.js"></script>
 <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body data-page="home">
 <script>window.DS_LANG='en';</script>
 
 <!-- NAV -->
@@ -65,16 +65,16 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="bg" data-parallax="0.35"><img fetchpriority="high" width="1280" height="853" src="../img/hero.webp" alt="Luxury villa with pool at sunset, Marrakech"></div>
-  <div class="wrap">
+  <div class="wrap"><div class="htext">
     <h1><span class="w"><i style="animation-delay:.1s">Your</i></span> <span class="w"><i style="animation-delay:.18s">Marrakech</i></span> <span class="w"><i style="animation-delay:.26s">property</i></span><br><span class="w"><i style="animation-delay:.46s">should</i></span> <span class="w"><i style="animation-delay:.54s">pay</i></span> <span class="w"><i style="animation-delay:.62s">you.</i></span><br><em><span class="w"><i style="animation-delay:.78s">Not</i></span> <span class="w"><i style="animation-delay:.86s">keep</i></span> <span class="w"><i style="animation-delay:.94s">you</i></span> <span class="w"><i style="animation-delay:1.02s">busy.</i></span></em></h1>
     <div class="hero-sub">
       <p>Management, letting and sales. You enjoy, we manage.</p>
       <div class="audience">
-        <a href="#contact" data-who="owner"><b>I own a property</b><span>Estimate my income →</span></a>
+        <a href="#etude" class="aud-owner"><b>I own a property</b><span>Simulate my income →</span></a>
         <a href="#contact" data-who="buyer"><b>I want to buy</b><span>Receive the selection →</span></a>
       </div>
     </div>
-  </div>
+  </div><form class="form hero-form" id="lead"><h3>Free income estimate</h3><p class="sub">Reply within 24 h. No commitment.</p><div class="row"><label>Property type<select name="type"><option>Apartment</option><option>Villa</option><option>Riad</option></select></label><label>Goal<select name="objectif"><option selected>Short-term letting</option><option>Long-term letting</option><option>Not sure yet</option></select></label></div><div class="row"><label>Name<input name="nom" type="text" autocomplete="name" placeholder="First and last name"></label><label>WhatsApp or email<input name="contact" type="text" required autocomplete="tel" placeholder="+44 7… or you@mail.com"></label></div><label>Message (optional)<input name="message" type="text" placeholder="Area, size, bedrooms…"></label><button type="submit" class="btn">Receive my estimate</button><small>By sending, WhatsApp opens with your request pre-filled. Your data is only used to reply to you. <a href="../confidentialite.html" style="text-decoration:underline">Privacy</a></small><div class="ok">Thank you. If WhatsApp did not open, email us at contact@darserenity.com.</div></form></div>
   <div class="hero-meta"><div class="wrap"><span>Marrakech</span><span>Management · Letting · Sales</span><span>Owners and investors, here and abroad</span></div></div>
 </section>
 
@@ -369,6 +369,6 @@
   </div>
 </footer>
 
-<script src="../app.js"></script>
+<script src="../lead.js"></script><script src="../app.js"></script>
 </body>
 </html>
