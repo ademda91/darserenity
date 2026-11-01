@@ -3,7 +3,7 @@
 window.DS_TRACK = window.DS_TRACK || {
   ga4: '',          // ex. 'G-XXXXXXXXXX'
   meta: '',         // ex. '123456789012345' (ID du pixel Meta)
-  gads: '',         // ex. 'AW-123456789' (Google Ads)
+  gads: 'AW-18550453830', // Google Ads
   gadsLead: ''      // ex. 'AW-123456789/AbCdEfGhIj' (libellé de conversion "Lead")
 };
 
