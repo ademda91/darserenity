@@ -26,10 +26,10 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // numéro WhatsApp a
     var v=function(id){var el=document.getElementById(id);return el?el.value.trim():''};
 
     var L=window.DS_LANG==='en'?{o:'Hello Dar Serenity, I own a property and would like a free estimate.',b:'Hello Dar Serenity, I am looking to buy in Marrakech and would like your selection.',type:'Property',obj:'Goal',budget:'Budget',proj:'Project',name:'Name',contact:'Contact',msg:'Message',sep:': '}:{o:'Bonjour Dar Serenity, je suis propriétaire et je souhaite une estimation gratuite.',b:'Bonjour Dar Serenity, je cherche à acheter à Marrakech et je souhaite recevoir votre sélection.',type:'Bien',obj:'Objectif',budget:'Budget',proj:'Projet',name:'Nom',contact:'Contact',msg:'Message',sep:' : '};
-    var lines=[w==='owner'?L.o:L.b];
+    var lines=[w==='owner'?L.o:L.b,''];
     if(w==='owner'){lines.push(L.type+L.sep+v('f-type'));lines.push(L.obj+L.sep+v('f-obj'))}else{lines.push(L.budget+L.sep+v('b-budget'));lines.push(L.proj+L.sep+v('b-obj'))}
     if(v('f-nom'))lines.push(L.name+L.sep+v('f-nom'));if(v('f-tel'))lines.push(L.contact+L.sep+v('f-tel'));if(v('f-msg'))lines.push(L.msg+L.sep+v('f-msg'));
-    var src=window.dsSource?window.dsSource():'';if(src)lines.push((window.DS_LANG==='en'?'Ref':'Réf')+L.sep+src);
+    var src=window.dsSource?window.dsSource():'';lines.push('',(window.DS_LANG==='en'?'Ref':'Réf')+L.sep+(window.DS_LANG==='en'?'home':'accueil')+(src?' · '+src:''));
     if(window.dsEvent)window.dsEvent('generate_lead',{who:w,type:w==='owner'?v('f-type'):v('b-budget'),objective:w==='owner'?v('f-obj'):v('b-obj')});
     var txt=lines.join('\n'),en=window.DS_LANG==='en';
     var url='https://wa.me/'+window.DS_WHATSAPP+'?text='+encodeURIComponent(txt);

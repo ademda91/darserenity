@@ -9,12 +9,13 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // même numéro que 
     var v = function (n) { var el = f.elements[n]; return el ? el.value.trim() : ''; };
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var lines = [L.o, L.type + L.sep + v('type'), L.obj + L.sep + v('objectif')];
+      var lines = [L.o, '', L.type + L.sep + v('type'), L.obj + L.sep + v('objectif')];
       if (v('nom')) lines.push(L.name + L.sep + v('nom'));
       if (v('contact')) lines.push(L.contact + L.sep + v('contact'));
       if (v('message')) lines.push(L.msg + L.sep + v('message'));
-      var src = window.dsSource ? window.dsSource() : ''; if (src) lines.push(L.ref + L.sep + src);
-      var page = document.body.dataset.page || location.pathname; lines.push(L.page + L.sep + page);
+      var src = window.dsSource ? window.dsSource() : '';
+      var page = document.body.dataset.page || location.pathname;
+      lines.push('', L.ref + L.sep + page + (src ? ' · ' + src : ''));
       if (window.dsEvent) window.dsEvent('generate_lead', { who: 'owner', type: v('type'), objective: v('objectif'), page: page });
       var txt = lines.join('\n');
       var url = 'https://wa.me/' + window.DS_WHATSAPP + '?text=' + encodeURIComponent(txt);
