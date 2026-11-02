@@ -4,33 +4,38 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp a
 (function(){
   var root=document.documentElement, body=document.body;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){body.classList.add('static')}else{root.classList.add('js')}
+  root.classList.remove('no-js');root.classList.add('js');if(reduce){body.classList.add('static')}
   var nav=document.getElementById('nav');
   function onNav(){nav.classList.toggle('solid',window.scrollY>40)}
   var mm=document.getElementById('mmenu');
-  var burger=document.getElementById('burger');function closeMenu(){mm.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.style.overflow=''}
-  burger.addEventListener('click',function(){mm.classList.add('open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'});
+  var burger=document.getElementById('burger');function closeMenu(){if(!mm.classList.contains('open'))return;mm.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';burger.focus()}
+  burger.addEventListener('click',function(){mm.classList.add('open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';document.getElementById('mclose').focus()});
+  mm.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var f=mm.querySelectorAll('a,button'),a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
   document.getElementById('mclose').addEventListener('click',closeMenu);
   mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu)});
 
   // Form audience toggle
   var form=document.getElementById('form'),submit=document.getElementById('submit');
-  function setWho(w){form.classList.remove('owner','buyer');form.classList.add(w);document.querySelectorAll('#who button').forEach(function(b){b.classList.toggle('on',b.dataset.who===w)});submit.textContent=window.DS_LANG==='en'?(w==='owner'?'Receive my estimate':'Receive the selection'):(w==='owner'?'Recevoir mon estimation':'Recevoir la sélection')}
+  function setWho(w){form.classList.remove('owner','buyer');form.classList.add(w);document.querySelectorAll('#who button').forEach(function(b){b.classList.toggle('on',b.dataset.who===w);b.setAttribute('aria-pressed',b.dataset.who===w)});submit.textContent=window.DS_LANG==='en'?(w==='owner'?'Receive my estimate':'Receive the selection'):(w==='owner'?'Recevoir mon estimation':'Recevoir la sélection')}
   document.querySelectorAll('#who button').forEach(function(b){b.addEventListener('click',function(){setWho(b.dataset.who)})});
-  document.querySelectorAll('[data-who][href$="#contact"]').forEach(function(a){a.addEventListener('click',function(){setWho(a.dataset.who)})});
+  document.querySelectorAll('[data-who][href$="#contact"]').forEach(function(a){a.addEventListener('click',function(){setWho(a.dataset.who);if(a.dataset.obj){var o=document.getElementById('f-obj');if(o)o.value=a.dataset.obj}})});
   try{var qw=new URLSearchParams(location.search).get('who');if(qw==='buyer'||qw==='owner')setWho(qw)}catch(e){}
   form.addEventListener('submit',function(e){e.preventDefault();
     var w=form.classList.contains('buyer')?'buyer':'owner';
     var v=function(id){var el=document.getElementById(id);return el?el.value.trim():''};
+    var tel=document.getElementById('f-tel');if(!v('f-tel')){tel.setCustomValidity(window.DS_LANG==='en'?'Please enter a WhatsApp number or an e-mail.':'Indiquez un numéro WhatsApp ou un e-mail.');tel.reportValidity();tel.setCustomValidity('');tel.focus();return}
     var L=window.DS_LANG==='en'?{o:'Hello Dar Serenity, I own a property and would like a free estimate.',b:'Hello Dar Serenity, I am looking to buy in Marrakech and would like your selection.',type:'Property',obj:'Goal',budget:'Budget',proj:'Project',name:'Name',contact:'Contact',msg:'Message',sep:': '}:{o:'Bonjour Dar Serenity, je suis propriétaire et je souhaite une estimation gratuite.',b:'Bonjour Dar Serenity, je cherche à acheter à Marrakech et je souhaite recevoir votre sélection.',type:'Bien',obj:'Objectif',budget:'Budget',proj:'Projet',name:'Nom',contact:'Contact',msg:'Message',sep:' : '};
     var lines=[w==='owner'?L.o:L.b];
     if(w==='owner'){lines.push(L.type+L.sep+v('f-type'));lines.push(L.obj+L.sep+v('f-obj'))}else{lines.push(L.budget+L.sep+v('b-budget'));lines.push(L.proj+L.sep+v('b-obj'))}
     if(v('f-nom'))lines.push(L.name+L.sep+v('f-nom'));if(v('f-tel'))lines.push(L.contact+L.sep+v('f-tel'));if(v('f-msg'))lines.push(L.msg+L.sep+v('f-msg'));
     var src=window.dsSource?window.dsSource():'';if(src)lines.push((window.DS_LANG==='en'?'Ref':'Réf')+L.sep+src);
     if(window.dsEvent)window.dsEvent('generate_lead',{who:w,type:w==='owner'?v('f-type'):v('b-budget'),objective:w==='owner'?v('f-obj'):v('b-obj')});
-    var url='https://wa.me/'+window.DS_WHATSAPP+'?text='+encodeURIComponent(lines.join('\n'));
-    window.open(url,'_blank');document.getElementById('ok').style.display='block'});
+    var txt=lines.join('\n'),en=window.DS_LANG==='en';
+    var url='https://wa.me/'+window.DS_WHATSAPP+'?text='+encodeURIComponent(txt);
+    var mail='mailto:contact@darserenity.com?subject='+encodeURIComponent(en?'Request via darserenity.com':'Demande via darserenity.com')+'&body='+encodeURIComponent(txt);
+    window.open(url,'_blank');
+    var ok=document.getElementById('ok');ok.innerHTML=(en?'Thank you. If WhatsApp did not open: ':"Merci. Si WhatsApp ne s'est pas ouvert : ")+'<a href="'+url+'" target="_blank" rel="noopener">'+(en?'open WhatsApp':'ouvrir WhatsApp')+'</a> · <a href="'+mail+'">'+(en?'send by e-mail':'envoyer par e-mail')+'</a>';ok.style.display='block';ok.setAttribute('tabindex','-1');ok.focus({preventScroll:true});ok.scrollIntoView({block:'nearest',behavior:'smooth'})});
 
   // Simulator
   var S={type:'appart',ch:2,std:1,pool:0};
@@ -40,9 +45,9 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp a
   function calc(){var b=base[S.type];var night=b.night*(1+(Math.min(S.ch,5)-2)*0.22)*S.std*(S.pool?1.25:1);
     var gross=night*365*b.occ;var us=gross*0.82;
     document.getElementById('s-us').textContent=window.DS_LANG==='en'?'MAD '+fmt(us).toLocaleString('en-GB'):num(fmt(us))+' MAD';
-    document.getElementById('s-eur').textContent=window.DS_LANG==='en'?'€'+num(fmt(us/10.7)):num(fmt(us/10.7))+' €';
+    document.getElementById('s-eur').textContent=window.DS_LANG==='en'?'€'+fmt(us/10.7).toLocaleString('en-GB'):num(fmt(us/10.7))+' €';
     document.getElementById('s-month').textContent=window.DS_LANG==='en'?'MAD '+(Math.round(us/12/500)*500).toLocaleString('en-GB'):num(Math.round(us/12/500)*500)+' MAD'}
-  function seg(id,key,parse){document.querySelectorAll('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');S[key]=parse(b.dataset.v);calc()})})}
+  function seg(id,key,parse){document.querySelectorAll('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');S[key]=parse(b.dataset.v);calc()})})}
   seg('s-type','type',String);seg('s-std','std',parseFloat);seg('s-pool','pool',parseInt);
   var ch=document.getElementById('s-ch');ch.addEventListener('input',function(){S.ch=+ch.value;document.getElementById('s-ch-v').textContent=ch.value;calc()});
   var simUsed=false;document.querySelectorAll('.sim button,#s-ch').forEach(function(el){el.addEventListener(el.id==='s-ch'?'input':'click',function(){if(!simUsed&&window.dsEvent){simUsed=true;window.dsEvent('simulator_use',{})}})});

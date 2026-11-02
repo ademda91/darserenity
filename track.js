@@ -4,7 +4,8 @@ window.DS_TRACK = window.DS_TRACK || {
   ga4: '',          // ex. 'G-XXXXXXXXXX'
   meta: '',         // ex. '123456789012345' (ID du pixel Meta)
   gads: 'AW-18550453830', // Google Ads
-  gadsLead: ''      // ex. 'AW-123456789/AbCdEfGhIj' (libellé de conversion "Lead")
+  gadsLead: '',     // ex. 'AW-123456789/AbCdEfGhIj' (conversion "Lead" formulaire)
+  gadsContact: ''   // ex. 'AW-123456789/XyZ' (conversion "Clic WhatsApp")
 };
 
 (function () {
@@ -64,6 +65,7 @@ window.DS_TRACK = window.DS_TRACK || {
         else fbq('trackCustom', name, params);
       }
       if (window.gtag && T.gadsLead && name === 'generate_lead') gtag('event', 'conversion', { send_to: T.gadsLead });
+      if (window.gtag && T.gadsContact && name === 'contact' && params.channel === 'whatsapp') gtag('event', 'conversion', { send_to: T.gadsContact });
     } catch (e) {}
   };
 
@@ -83,15 +85,15 @@ window.DS_TRACK = window.DS_TRACK || {
     var txt = L === 'en'
       ? ['We use cookies to measure our advertising and improve the site. You can refuse.', 'Accept', 'Refuse', 'Privacy']
       : ['Nous utilisons des cookies pour mesurer nos publicités et améliorer le site. Vous pouvez refuser.', 'Accepter', 'Refuser', 'Confidentialité'];
-    var priv = (location.pathname.indexOf('/en/') === 0 ? '/' : '/') + 'confidentialite.html';
+    var priv = L === 'en' ? '/en/privacy.html' : '/confidentialite.html';
     var b = document.createElement('div'); b.id = 'ds-consent'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', 'Cookies');
     b.innerHTML = '<p>' + txt[0] + ' <a href="' + priv + '">' + txt[3] + '</a></p><div><button type="button" id="ds-no">' + txt[2] + '</button><button type="button" id="ds-yes">' + txt[1] + '</button></div>';
     var st = document.createElement('style');
-    st.textContent = '#ds-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:560px;margin:0 auto;background:#fff;color:#141414;border:1px solid #E7E3DC;box-shadow:0 12px 40px rgba(0,0,0,.14);padding:18px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:14px;line-height:1.5}#ds-consent p{margin:0;flex:1 1 260px}#ds-consent a{text-decoration:underline}#ds-consent div{display:flex;gap:10px}#ds-consent button{font:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:12px 16px;border:1px solid #141414;background:#fff;color:#141414;cursor:pointer}#ds-consent #ds-yes{background:#141414;color:#fff}@media(max-width:820px){#ds-consent{bottom:84px}}';
+    st.textContent = '#ds-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:560px;margin:0 auto;background:#fff;color:#141414;border:1px solid #E7E3DC;box-shadow:0 12px 40px rgba(0,0,0,.14);padding:18px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:14px;line-height:1.5}#ds-consent p{margin:0;flex:1 1 260px}#ds-consent a{text-decoration:underline}#ds-consent div{display:flex;gap:10px}#ds-consent button{font:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:12px 16px;border:1px solid #141414;background:#fff;color:#141414;cursor:pointer}#ds-consent #ds-yes{background:#141414;color:#fff}@media(max-width:820px){#ds-consent{left:0;right:0;bottom:0;max-width:none;padding:10px 14px;gap:10px;font-size:13px;line-height:1.35;box-shadow:0 -6px 24px rgba(0,0,0,.12)}#ds-consent p{flex:1 1 180px}#ds-consent button{padding:9px 12px;font-size:11px}body.consent-open .wa{bottom:112px}}';
     document.head.appendChild(st);
-    function mount() { document.body.appendChild(b);
-      document.getElementById('ds-yes').onclick = function () { set(KEY, 'yes'); b.remove(); loadTrackers(); };
-      document.getElementById('ds-no').onclick = function () { set(KEY, 'no'); b.remove(); }; }
+    function mount() { document.body.insertBefore(b, document.body.firstChild); document.body.classList.add('consent-open');
+      document.getElementById('ds-yes').onclick = function () { set(KEY, 'yes'); b.remove(); document.body.classList.remove('consent-open'); loadTrackers(); };
+      document.getElementById('ds-no').onclick = function () { set(KEY, 'no'); b.remove(); document.body.classList.remove('consent-open'); }; }
     if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
   }
 })();
