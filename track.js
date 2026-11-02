@@ -4,7 +4,7 @@ window.DS_TRACK = window.DS_TRACK || {
   ga4: '',          // ex. 'G-XXXXXXXXXX'
   meta: '',         // ex. '123456789012345' (ID du pixel Meta)
   gads: 'AW-18550453830', // Google Ads
-  gadsLead: '',     // ex. 'AW-123456789/AbCdEfGhIj' (conversion "Lead" formulaire)
+  gadsLead: 'AW-18550453830/wpegCOSK97AdEMbsxY1F', // conversion "Lead" formulaire
   gadsContact: ''   // ex. 'AW-123456789/XyZ' (conversion "Clic WhatsApp")
 };
 
