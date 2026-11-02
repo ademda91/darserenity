@@ -1,5 +1,5 @@
 // Dar Serenity — configuration
-window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // numéro WhatsApp au format international sans + ni espaces
+window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // numéro WhatsApp au format international sans + ni espaces
 
 (function(){
   var root=document.documentElement, body=document.body;

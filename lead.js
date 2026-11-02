@@ -1,5 +1,5 @@
 // Dar Serenity — formulaires propriétaires des pages d'atterrissage
-window.DS_WHATSAPP = window.DS_WHATSAPP || '212600000000'; // même numéro que app.js
+window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // même numéro que app.js
 (function () {
   var en = (document.documentElement.lang || 'fr').slice(0, 2) === 'en';
   var L = en
