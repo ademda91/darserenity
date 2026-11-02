@@ -24,7 +24,7 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // numéro WhatsApp a
   form.addEventListener('submit',function(e){e.preventDefault();
     var w=form.classList.contains('buyer')?'buyer':'owner';
     var v=function(id){var el=document.getElementById(id);return el?el.value.trim():''};
-    var tel=document.getElementById('f-tel');if(!v('f-tel')){tel.setCustomValidity(window.DS_LANG==='en'?'Please enter a WhatsApp number or an e-mail.':'Indiquez un numéro WhatsApp ou un e-mail.');tel.reportValidity();tel.setCustomValidity('');tel.focus();return}
+
     var L=window.DS_LANG==='en'?{o:'Hello Dar Serenity, I own a property and would like a free estimate.',b:'Hello Dar Serenity, I am looking to buy in Marrakech and would like your selection.',type:'Property',obj:'Goal',budget:'Budget',proj:'Project',name:'Name',contact:'Contact',msg:'Message',sep:': '}:{o:'Bonjour Dar Serenity, je suis propriétaire et je souhaite une estimation gratuite.',b:'Bonjour Dar Serenity, je cherche à acheter à Marrakech et je souhaite recevoir votre sélection.',type:'Bien',obj:'Objectif',budget:'Budget',proj:'Projet',name:'Nom',contact:'Contact',msg:'Message',sep:' : '};
     var lines=[w==='owner'?L.o:L.b];
     if(w==='owner'){lines.push(L.type+L.sep+v('f-type'));lines.push(L.obj+L.sep+v('f-obj'))}else{lines.push(L.budget+L.sep+v('b-budget'));lines.push(L.proj+L.sep+v('b-obj'))}
