@@ -3,8 +3,8 @@ window.DS_WHATSAPP = window.DS_WHATSAPP || '212684596946'; // même numéro que 
 (function () {
   var en = (document.documentElement.lang || 'fr').slice(0, 2) === 'en';
   var L = en
-    ? { o: 'Hello Dar Serenity, I own a property and would like a free estimate.', type: 'Property', obj: 'Goal', name: 'Name', contact: 'Contact', msg: 'Message', ref: 'Ref', page: 'Page', sep: ': ', need: 'Please enter a WhatsApp number or an e-mail.', ok: 'Thank you. If WhatsApp did not open: ', wa: 'open WhatsApp', mail: 'send by e-mail', subj: 'Free estimate request' }
-    : { o: 'Bonjour Dar Serenity, je suis propriétaire et je souhaite une estimation gratuite.', type: 'Bien', obj: 'Objectif', name: 'Nom', contact: 'Contact', msg: 'Message', ref: 'Réf', page: 'Page', sep: ' : ', need: 'Indiquez un numéro WhatsApp ou un e-mail.', ok: "Merci. Si WhatsApp ne s'est pas ouvert : ", wa: 'ouvrir WhatsApp', mail: 'envoyer par e-mail', subj: "Demande d'estimation" };
+    ? { o: 'Hello Dar Serenity 👋 I own a property in Marrakech and would like a free estimate ☀️', type: '🏠 Property', obj: '🎯 Goal', name: '👤 Name', contact: '✉️ Contact', msg: '💬 Message', ref: '📍 Ref', page: 'Page', sep: ': ', need: 'Please enter a WhatsApp number or an e-mail.', ok: 'Thank you. If WhatsApp did not open: ', wa: 'open WhatsApp', mail: 'send by e-mail', subj: 'Free estimate request' }
+    : { o: 'Bonjour Dar Serenity 👋 Je suis propriétaire à Marrakech et je souhaite une estimation gratuite ☀️', type: '🏠 Bien', obj: '🎯 Objectif', name: '👤 Nom', contact: '✉️ Contact', msg: '💬 Message', ref: '📍 Réf', page: 'Page', sep: ' : ', need: 'Indiquez un numéro WhatsApp ou un e-mail.', ok: "Merci. Si WhatsApp ne s'est pas ouvert : ", wa: 'ouvrir WhatsApp', mail: 'envoyer par e-mail', subj: "Demande d'estimation" };
   document.querySelectorAll('#lead, form.lead').forEach(function (f) {
     var v = function (n) { var el = f.elements[n]; return el ? el.value.trim() : ''; };
     f.addEventListener('submit', function (e) {
